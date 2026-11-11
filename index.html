@@ -1,113 +1,457 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>AI Chatbot</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-body {
-  margin: 0;
-  font-family: Arial;
-  background: #0d0d0d;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-}
-#chat {
-  flex: 1;
-  overflow-y: auto;
-  padding: 10px;
-}
-.msg {
-  max-width: 70%;
-  padding: 10px;
-  margin: 6px;
-  border-radius: 12px;
-  word-wrap: break-word;
-}
-.user {
-  background: #1e90ff;
-  margin-left: auto;
-}
-.bot {
-  background: #262626;
-}
-#inputBox {
-  display: flex;
-  padding: 10px;
-  background: #111;
-}
-input {
-  flex: 1;
-  padding: 10px;
-  border: none;
-  outline: none;
-}
-button {
-  padding: 10px 15px;
-  background: #1e90ff;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Professional portfolio of Tahsin Bhuiyan, a student from Bangladesh passionate about technology and anime." />
+  <title>Tahsin Bhuiyan | Portfolio</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --bg-soft: #111827;
+      --panel: #161d2a;
+      --panel-2: #1d2738;
+      --text: #edf2f7;
+      --muted: #a7b3c6;
+      --accent: #7dd3fc;
+      --accent-2: #67e8f9;
+      --line: rgba(255,255,255,0.08);
+      --shadow: rgba(14, 165, 233, 0.16);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(125, 211, 252, 0.14), transparent 25%),
+        linear-gradient(180deg, var(--bg), #0b1320 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .container {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(12px);
+      background: rgba(13, 17, 23, 0.72);
+      border-bottom: 1px solid var(--line);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 76px;
+    }
+
+    .brand {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .brand span {
+      color: var(--accent-2);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .hero {
+      padding: 90px 0 60px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      gap: 36px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 18px;
+      font-size: 0.8rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent-2);
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.8rem, 6vw, 5.5rem);
+      line-height: 0.96;
+      letter-spacing: -0.06em;
+    }
+
+    h1 .highlight {
+      color: var(--accent-2);
+    }
+
+    .intro {
+      margin-top: 22px;
+      max-width: 620px;
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 32px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 13px 20px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      transition: 0.2s ease;
+    }
+
+    .button.primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #07131d;
+      box-shadow: 0 16px 32px var(--shadow);
+    }
+
+    .button.secondary {
+      border-color: var(--line);
+      color: var(--text);
+      background: rgba(255,255,255,0.02);
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+    }
+
+    .profile-card {
+      background: linear-gradient(180deg, rgba(22,29,42,0.9), rgba(29,39,56,0.8));
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 28px;
+      box-shadow: 0 24px 40px rgba(0,0,0,0.18);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .profile-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto auto 0;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(103,232,249,0.25), transparent 65%);
+      pointer-events: none;
+    }
+
+    .avatar {
+      width: 150px;
+      height: 150px;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 18px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #081017;
+      font-size: 3.4rem;
+      font-weight: 800;
+      box-shadow: 0 18px 30px rgba(103,232,249,0.2);
+    }
+
+    .card-label {
+      color: var(--muted);
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .profile-name {
+      font-size: 1.7rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      margin: 6px 0 10px;
+    }
+
+    .profile-meta {
+      color: var(--muted);
+      font-size: 0.97rem;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .stat {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.02);
+      border-radius: 16px;
+      padding: 14px 12px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.4rem;
+      margin-bottom: 4px;
+      color: var(--accent-2);
+    }
+
+    .section {
+      padding: 36px 0;
+    }
+
+    .section-heading {
+      margin-bottom: 26px;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      letter-spacing: -0.05em;
+    }
+
+    .about-grid,
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 22px;
+    }
+
+    .panel {
+      background: rgba(17, 24, 39, 0.78);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 26px;
+    }
+
+    .panel p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
+    .list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 12px;
+    }
+
+    .list li {
+      padding: 12px 14px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      color: var(--muted);
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .tag {
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(125, 211, 252, 0.05);
+      color: var(--text);
+      font-size: 0.88rem;
+    }
+
+    .contact {
+      padding: 24px 0 80px;
+    }
+
+    .contact-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      padding: 28px 30px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: linear-gradient(135deg, rgba(125, 211, 252, 0.05), rgba(103, 232, 249, 0.04));
+    }
+
+    .contact-box h3 {
+      margin: 0 0 5px;
+      font-size: clamp(1.5rem, 2vw, 2rem);
+      letter-spacing: -0.04em;
+    }
+
+    .contact-box p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 22px 0 40px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 760px) {
+      .hero-grid,
+      .about-grid,
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 60px;
+      }
+
+      .profile-card {
+        padding: 22px 18px;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <header>
+    <div class="container">
+      <nav aria-label="Main navigation">
+        <div class="brand">Tahsin <span>Bhuiyan</span></div>
+        <div class="nav-links">
+          <a href="#about">About</a>
+          <a href="#interests">Interests</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </nav>
+    </div>
+  </header>
 
-<div id="chat"></div>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">Student | Tech Enthusiast</span>
+          <h1>Hello, I’m <span class="highlight">Tahsin</span>.</h1>
+          <p class="intro">
+            I’m from Bangladesh and currently studying at Comilla Zilla School. I enjoy technology,
+            learning new ideas, and spending time with anime and digital creativity.
+          </p>
+          <div class="cta-row">
+            <a class="button primary" href="#contact">Let’s connect</a>
+            <a class="button secondary" href="#about">About me</a>
+          </div>
+        </div>
 
-<div id="inputBox">
-  <input id="input" placeholder="Type a message..." onkeypress="if(event.key==='Enter') send()">
-  <button onclick="send()">Send</button>
-</div>
+        <aside class="profile-card" aria-label="Profile summary">
+          <div class="avatar">T</div>
+          <div class="card-label">Profile</div>
+          <div class="profile-name">Tahsin Bhuiyan</div>
+          <div class="profile-meta">Bangladesh · Comilla Zilla School</div>
 
-<script>
-const API_KEY = prompt("AIzaSyB1Ufi59cA0IDx_csZRSCbs6werLCgWxMM"); // 👈 auto ask
+          <div class="stats">
+            <div class="stat">
+              <strong>Tech</strong>
+              Curious learner
+            </div>
+            <div class="stat">
+              <strong>Anime</strong>
+              Big fan
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
 
-function addMessage(text, type) {
-  const msg = document.createElement("div");
-  msg.className = "msg " + type;
-  msg.innerText = text;
-  document.getElementById("chat").appendChild(msg);
-  document.getElementById("chat").scrollTop = chat.scrollHeight;
-}
+    <section class="section" id="about">
+      <div class="container about-grid">
+        <div class="panel">
+          <h2 class="section-heading">About me</h2>
+          <p>
+            I’m a student who enjoys exploring the world of technology and understanding how digital tools shape everyday life.
+            Alongside that, anime has been one of my favorite interests, giving me inspiration, creativity, and a sense of wonder.
+          </p>
+        </div>
 
-async function send() {
-  const input = document.getElementById("input");
-  const text = input.value.trim();
-  if (!text) return;
+        <div class="panel">
+          <h2 class="section-heading">Quick facts</h2>
+          <ul class="list">
+            <li>Based in Bangladesh</li>
+            <li>Student at Comilla Zilla School</li>
+            <li>Interested in tech, creativity, and learning</li>
+            <li>Anime nerd with a love for storytelling</li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
-  addMessage(text, "user");
-  input.value = "";
+    <section class="section" id="interests">
+      <div class="container info-grid">
+        <div class="panel">
+          <h2 class="section-heading">Interests</h2>
+          <div class="tag-list" aria-label="Interest tags">
+            <span class="tag">Technology</span>
+            <span class="tag">Programming</span>
+            <span class="tag">Gaming</span>
+            <span class="tag">Anime</span>
+            <span class="tag">Creative projects</span>
+            <span class="tag">Learning</span>
+          </div>
+        </div>
 
-  addMessage("Typing...", "bot");
+        <div class="panel">
+          <h2 class="section-heading">Mindset</h2>
+          <p>
+            I like building things, exploring ideas, and improving my skills step by step. I believe curiosity and consistency matter more than rushing.
+          </p>
+        </div>
+      </div>
+    </section>
 
-  try {
-    const res = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-goog-api-key": API_KEY
-      },
-      body: JSON.stringify({
-        contents: [{
-          parts: [{ text: text }]
-        }]
-      })
-    });
+    <section class="contact" id="contact">
+      <div class="container">
+        <div class="contact-box">
+          <div>
+            <h3>Let’s connect</h3>
+            <p>Open to learning, building, and new opportunities.</p>
+          </div>
+          <a class="button primary" href="mailto:tahsinbhuiyan@example.com">Email me</a>
+        </div>
+      </div>
+    </section>
+  </main>
 
-    const data = await res.json();
-    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "No response";
-
-    document.querySelector(".bot:last-child").innerText = reply;
-
-  } catch (err) {
-    document.querySelector(".bot:last-child").innerText = "Error connecting to AI";
-  }
-}
-</script>
-
+  <footer>
+    © 2026 Tahsin Bhuiyan · Built with curiosity and passion
+  </footer>
 </body>
 </html>
